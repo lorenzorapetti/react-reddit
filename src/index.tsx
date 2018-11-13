@@ -1,12 +1,23 @@
-import React from 'react';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import * as React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+import { themeLight } from './themes';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import './index.css';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+/**
+ * Here we render all the react app to the element with the id "root".
+ * You can find that element in index.html in the public folder
+ */
+ReactDOM.render(
+  <>
+    {/* This is an helper component that outputs some reset styles, similar to normalize.css */}
+    <CssBaseline />
+    <MuiThemeProvider theme={themeLight}>
+      <App />
+    </MuiThemeProvider>
+  </>,
+  document.getElementById('root'),
+);

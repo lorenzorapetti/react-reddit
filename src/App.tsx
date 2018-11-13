@@ -1,28 +1,49 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
+import React, { useState, useEffect, FunctionComponent } from 'react';
+import Header from './layout/Header';
+import NavigationDrawer from './layout/NavigationDrawer';
+import Content from './layout/Content';
+import { TitleContext } from './context';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex',
+    },
+    grow: {
+      flexGrow: 1,
+    },
+  });
+
+export interface IAppProps extends WithStyles<typeof styles> {}
+
+const App: FunctionComponent<IAppProps> = ({ classes }) => {
+  const [drawerOpen, setDrawerOpen] = useState(true);
+  const baseTitle = 'React Reddit';
+  const [title, setTitle] = useState(baseTitle);
+
+  useEffect(
+    () => {
+      if (document.title !== title) {
+        document.title = title && title !== baseTitle ? `${title} - ${baseTitle}` : baseTitle;
+      }
+    },
+    [title],
+  );
+
+  function handleDrawerToggleClick() {
+    setDrawerOpen(!drawerOpen);
   }
-}
 
-export default App;
+  return (
+    <TitleContext.Provider value={{ title, setTitle }}>
+      <div className={classes.root}>
+        <Header onDrawerToggleClick={handleDrawerToggleClick} />
+        <NavigationDrawer drawerOpen={drawerOpen} />
+        <Content drawerOpen={drawerOpen} />
+      </div>
+    </TitleContext.Provider>
+  );
+};
+
+export default withStyles(styles)(App);
