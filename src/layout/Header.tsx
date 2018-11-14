@@ -4,10 +4,14 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import Palette from '@material-ui/icons/Palette';
 import PaletteOutlined from '@material-ui/icons/PaletteOutlined';
+import LaunchIcon from '@material-ui/icons/Launch';
 import { TitleContext } from '../context';
+import GithubIcon from '../icons/Github';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -33,6 +37,7 @@ const Header: FunctionComponent<IHeaderProps> = ({
   lightTheme,
 }) => {
   const { title } = useContext(TitleContext);
+  const githubLink = 'https://github.com/loryman/react-reddit';
 
   return (
     <AppBar position="absolute" className={classes.appBar}>
@@ -49,9 +54,20 @@ const Header: FunctionComponent<IHeaderProps> = ({
           {title}
         </Typography>
         <div>
-          <IconButton onClick={onThemeToggleClick} color="inherit">
-            {lightTheme ? <PaletteOutlined /> : <Palette />}
-          </IconButton>
+          <Tooltip title={lightTheme ? 'Set dark theme' : 'Set light theme'}>
+            <IconButton
+              onClick={onThemeToggleClick}
+              color="inherit"
+              aria-label={lightTheme ? 'Set dark theme' : 'Set light theme'}
+            >
+              {lightTheme ? <PaletteOutlined /> : <Palette />}
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Github">
+            <IconButton color="inherit" aria-label="Github" href={githubLink} target="_blank">
+              <GithubIcon />
+            </IconButton>
+          </Tooltip>
         </div>
       </Toolbar>
     </AppBar>
