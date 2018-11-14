@@ -5,6 +5,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Palette from '@material-ui/icons/Palette';
+import PaletteOutlined from '@material-ui/icons/PaletteOutlined';
 import { TitleContext } from '../context';
 
 const styles = (theme: Theme) =>
@@ -20,9 +22,16 @@ const styles = (theme: Theme) =>
 
 export interface IHeaderProps extends WithStyles<typeof styles> {
   onDrawerToggleClick?: () => void;
+  onThemeToggleClick?: () => void;
+  lightTheme?: boolean;
 }
 
-const Header: FunctionComponent<IHeaderProps> = ({ classes, onDrawerToggleClick }) => {
+const Header: FunctionComponent<IHeaderProps> = ({
+  classes,
+  onDrawerToggleClick,
+  onThemeToggleClick,
+  lightTheme,
+}) => {
   const { title } = useContext(TitleContext);
 
   return (
@@ -39,6 +48,11 @@ const Header: FunctionComponent<IHeaderProps> = ({ classes, onDrawerToggleClick 
         <Typography variant="h6" color="inherit" className="grow">
           {title}
         </Typography>
+        <div>
+          <IconButton onClick={onThemeToggleClick} color="inherit">
+            {lightTheme ? <PaletteOutlined /> : <Palette />}
+          </IconButton>
+        </div>
       </Toolbar>
     </AppBar>
   );
