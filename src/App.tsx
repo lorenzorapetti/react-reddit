@@ -44,6 +44,10 @@ const App: FunctionComponent<IAppProps> = ({ classes }) => {
     setDrawerOpen(!drawerOpen);
   }
 
+  function handleDrawerClose() {
+    if (drawerOpen) setDrawerOpen(false);
+  }
+
   function handleThemeToggleClick() {
     setLightTheme(!lightTheme);
   }
@@ -60,7 +64,7 @@ const App: FunctionComponent<IAppProps> = ({ classes }) => {
             onThemeToggleClick={handleThemeToggleClick}
             lightTheme={lightTheme}
           />
-          <NavigationDrawer drawerOpen={drawerOpen} />
+          <NavigationDrawer drawerOpen={drawerOpen} onDrawerClosed={handleDrawerClose} />
           <Content drawerOpen={drawerOpen} />
         </div>
       </TitleContext.Provider>

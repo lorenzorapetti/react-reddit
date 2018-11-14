@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Theme, withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
+import withWidth, { WithWidth, isWidthDown } from '@material-ui/core/withWidth';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
 import { drawerWidth } from '../themes';
@@ -23,16 +24,21 @@ const styles = (theme: Theme) => {
   });
 };
 
-export interface IContentProps extends WithStyles<typeof styles> {
+export interface IContentProps extends WithStyles<typeof styles>, WithWidth {
   drawerOpen?: boolean;
 }
 
-const Content: FunctionComponent<IContentProps> = ({ classes, drawerOpen }) => {
+const Content: FunctionComponent<IContentProps> = ({ classes, drawerOpen, width }) => {
   return (
-    <main className={classNames(classes.main, drawerOpen && classes.mainShift)}>
+    <main
+      className={classNames(
+        classes.main,
+        (drawerOpen || isWidthDown('sm', width)) && classes.mainShift,
+      )}
+    >
       <Typography>Content</Typography>
     </main>
   );
 };
 
-export default withStyles(styles)(Content);
+export default withWidth()(withStyles(styles)(Content));

@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Theme, createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
+import withWidth, { WithWidth, isWidthDown } from '@material-ui/core/withWidth';
 import Drawer from '@material-ui/core/Drawer';
 import { drawerWidth } from '../themes';
 
@@ -15,24 +16,30 @@ const styles = (theme: Theme) =>
     toolbar: theme.mixins.toolbar,
   });
 
-export interface INavigationDrawerProps extends WithStyles<typeof styles> {
+export interface INavigationDrawerProps extends WithStyles<typeof styles>, WithWidth {
   drawerOpen?: boolean;
+  onDrawerClosed?: () => void;
 }
 
 const NavigationDrawer: FunctionComponent<INavigationDrawerProps> = ({
   classes,
   drawerOpen = true,
+  onDrawerClosed,
+  width,
 }) => {
   return (
     <Drawer
       className={classes.drawer}
-      variant="persistent"
+      variant={isWidthDown('sm', width) ? 'temporary' : 'persistent'}
+      anchor="left"
       open={drawerOpen}
+      onClose={onDrawerClosed}
       classes={{ paper: classes.drawerPaper }}
+      ModalProps={{ keepMounted: true }}
     >
       <div className={classes.toolbar} />
     </Drawer>
   );
 };
 
-export default withStyles(styles)(NavigationDrawer);
+export default withWidth()(withStyles(styles)(NavigationDrawer));
