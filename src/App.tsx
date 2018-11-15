@@ -62,7 +62,6 @@ const App: FunctionComponent<IAppProps> = ({ classes }) => {
           <Header
             onDrawerToggleClick={handleDrawerToggleClick}
             onThemeToggleClick={handleThemeToggleClick}
-            lightTheme={lightTheme}
           />
           <NavigationDrawer drawerOpen={drawerOpen} onDrawerClosed={handleDrawerClose} />
           <Content drawerOpen={drawerOpen} />

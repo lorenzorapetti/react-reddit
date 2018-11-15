@@ -1,15 +1,13 @@
 import React, { useContext, FunctionComponent } from 'react';
-import { createStyles, withStyles, WithStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, withStyles, WithStyles, Theme, WithTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import Palette from '@material-ui/icons/Palette';
 import PaletteOutlined from '@material-ui/icons/PaletteOutlined';
-import LaunchIcon from '@material-ui/icons/Launch';
 import { TitleContext } from '../context';
 import GithubIcon from '../icons/Github';
 
@@ -24,20 +22,20 @@ const styles = (theme: Theme) =>
     },
   });
 
-export interface IHeaderProps extends WithStyles<typeof styles> {
+export interface IHeaderProps extends WithStyles<typeof styles>, WithTheme {
   onDrawerToggleClick?: () => void;
   onThemeToggleClick?: () => void;
-  lightTheme?: boolean;
 }
 
 const Header: FunctionComponent<IHeaderProps> = ({
   classes,
   onDrawerToggleClick,
   onThemeToggleClick,
-  lightTheme,
+  theme,
 }) => {
   const { title } = useContext(TitleContext);
   const githubLink = 'https://github.com/loryman/react-reddit';
+  const lightTheme = theme.palette.type === 'light';
 
   return (
     <AppBar position="absolute" className={classes.appBar}>
@@ -47,6 +45,7 @@ const Header: FunctionComponent<IHeaderProps> = ({
           onClick={onDrawerToggleClick}
           color="inherit"
           aria-label="Menu"
+          data-testid="drawer-button"
         >
           <MenuIcon />
         </IconButton>
@@ -59,6 +58,7 @@ const Header: FunctionComponent<IHeaderProps> = ({
               onClick={onThemeToggleClick}
               color="inherit"
               aria-label={lightTheme ? 'Set dark theme' : 'Set light theme'}
+              data-testid="theme-button"
             >
               {lightTheme ? <PaletteOutlined /> : <Palette />}
             </IconButton>
@@ -74,4 +74,4 @@ const Header: FunctionComponent<IHeaderProps> = ({
   );
 };
 
-export default withStyles(styles)(Header);
+export default withStyles(styles, { withTheme: true })(Header);

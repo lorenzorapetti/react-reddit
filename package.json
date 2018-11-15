@@ -32,6 +32,7 @@
     "@types/react": "16.7.4",
     "@types/react-dom": "16.0.9",
     "@types/react-transition-group": "^2.0.8",
+    "jest-dom": "^2.1.1",
     "prettier": "^1.15.2",
     "react-testing-library": "^5.2.3",
     "tslint": "^5.11.0",

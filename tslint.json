@@ -10,6 +10,6 @@
   },
   "rulesDirectory": [],
   "linterOptions": {
-    "exclude": ["**/__tests__/**/*.+(ts|tsx)", "./src/setupTests.ts"]
+    "exclude": ["**/__tests__/**/*.+(ts|tsx)", "./src/setupTests.ts", "./test/**/*.+(ts|tsx)"]
   }
 }
