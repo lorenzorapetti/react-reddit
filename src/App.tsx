@@ -1,10 +1,4 @@
-import {
-  createStyles,
-  Theme,
-  withStyles,
-  WithStyles,
-  MuiThemeProvider,
-} from '@material-ui/core/styles';
+import { createStyles, withStyles, WithStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import React, { useState, useEffect, FunctionComponent } from 'react';
 import Header from './layout/Header';
@@ -13,7 +7,7 @@ import Content from './layout/Content';
 import { TitleContext } from './context';
 import { themeDark, themeLight } from './themes';
 
-const styles = (theme: Theme) =>
+const styles = () =>
   createStyles({
     root: {
       display: 'flex',
