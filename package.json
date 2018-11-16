@@ -13,13 +13,22 @@
   },
   "scripts": {
     "analyze": "source-map-explorer build/static/js/main.*",
+    "format": "prettier --write \"{+(.vscode|public|src|test)/**/,}*.{js,jsx,ts,tsx,json,css,scss,md,html}\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "{+(.vscode|public|src|test)/**/,}*.{js,jsx,ts,tsx,json,css,scss,md,html}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "browserslist": [
     ">0.8%",
@@ -34,7 +43,9 @@
     "@types/react": "16.7.4",
     "@types/react-dom": "16.0.9",
     "@types/react-transition-group": "^2.0.8",
+    "husky": "^1.1.4",
     "jest-dom": "^2.1.1",
+    "lint-staged": "^8.0.4",
     "prettier": "^1.15.2",
     "react-testing-library": "^5.2.3",
     "tslint": "^5.11.0",
