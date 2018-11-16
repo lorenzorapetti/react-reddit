@@ -64,7 +64,13 @@ const Header: FunctionComponent<IHeaderProps> = ({
             </IconButton>
           </Tooltip>
           <Tooltip title="Github">
-            <IconButton color="inherit" aria-label="Github" href={githubLink} target="_blank">
+            <IconButton
+              color="inherit"
+              aria-label="Github"
+              href={githubLink}
+              target="_blank"
+              rel="noopener"
+            >
               <GithubIcon />
             </IconButton>
           </Tooltip>
