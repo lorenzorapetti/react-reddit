@@ -8,9 +8,11 @@
     "classnames": "^2.2.6",
     "react": "^16.7.0-alpha.2",
     "react-dom": "^16.7.0-alpha.2",
-    "react-scripts": "2.1.1"
+    "react-scripts": "2.1.1",
+    "source-map-explorer": "^1.6.0"
   },
   "scripts": {
+    "analyze": "source-map-explorer build/static/js/main.*",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
