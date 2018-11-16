@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NavigationDrawer /> should switch themes 1`] = `
+<div
+  class="MuiDrawer-root-440 MuiDrawer-docked-441 NavigationDrawer-drawer-437"
+  data-testid="navigation-drawer"
+>
+  <div
+    class="MuiPaper-root-452 MuiPaper-elevation0-454 MuiDrawer-paper-442 NavigationDrawer-drawerPaper-438 MuiDrawer-paperAnchorLeft-443 MuiDrawer-paperAnchorDockedLeft-447"
+    direction="right"
+  >
+    <div
+      class="NavigationDrawer-toolbar-439"
+    />
+  </div>
+</div>
+`;
+
+exports[`<NavigationDrawer /> should switch themes 2`] = `
+<div
+  class="MuiDrawer-root-506 MuiDrawer-docked-507 NavigationDrawer-drawer-518"
+  data-testid="navigation-drawer"
+>
+  <div
+    class="MuiPaper-root-479 MuiPaper-elevation0-481 MuiDrawer-paper-508 NavigationDrawer-drawerPaper-519 MuiDrawer-paperAnchorLeft-509 MuiDrawer-paperAnchorDockedLeft-513"
+    direction="right"
+  >
+    <div
+      class="NavigationDrawer-toolbar-520"
+    />
+  </div>
+</div>
+`;

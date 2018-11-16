@@ -36,6 +36,7 @@ const NavigationDrawer: FunctionComponent<INavigationDrawerProps> = ({
       onClose={onDrawerClosed}
       classes={{ paper: classes.drawerPaper }}
       ModalProps={{ keepMounted: true }}
+      data-testid="navigation-drawer"
     >
       <div className={classes.toolbar} />
     </Drawer>

@@ -9,9 +9,9 @@ export function renderWithTheme<P>(ui: React.ReactElement<P>, theme: 'light' | '
   );
   return {
     ...result,
-    rerenderWithTheme(ui: React.ReactElement<any>) {
+    rerenderWithTheme(ui: React.ReactElement<any>, themeOverride: 'light' | 'dark' = theme) {
       result.rerender(
-        <MuiThemeProvider theme={theme === 'light' ? themeLight : themeDark}>
+        <MuiThemeProvider theme={themeOverride === 'light' ? themeLight : themeDark}>
           {ui}
         </MuiThemeProvider>,
       );
