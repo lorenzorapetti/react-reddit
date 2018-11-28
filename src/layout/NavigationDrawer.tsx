@@ -1,10 +1,12 @@
 import React, { FunctionComponent } from 'react';
-import { Theme, createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
+import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
 import withWidth, { WithWidth, isWidthDown } from '@material-ui/core/withWidth';
 import Drawer from '@material-ui/core/Drawer';
+import Loading from '../utils/Loading';
 import { drawerWidth } from '../themes';
+import useReddit from '../hooks/useReddit';
 
-const styles = (theme: Theme) =>
+const styles = () =>
   createStyles({
     drawer: {
       width: drawerWidth,
@@ -12,8 +14,8 @@ const styles = (theme: Theme) =>
     },
     drawerPaper: {
       width: drawerWidth,
+      paddingTop: 48,
     },
-    toolbar: theme.mixins.toolbar,
   });
 
 export interface INavigationDrawerProps extends WithStyles<typeof styles>, WithWidth {
@@ -27,6 +29,8 @@ const NavigationDrawer: FunctionComponent<INavigationDrawerProps> = ({
   onDrawerClosed,
   width,
 }) => {
+  const { loading } = useReddit('subreddits/default');
+
   return (
     <Drawer
       className={classes.drawer}
@@ -38,7 +42,7 @@ const NavigationDrawer: FunctionComponent<INavigationDrawerProps> = ({
       ModalProps={{ keepMounted: true }}
       data-testid="navigation-drawer"
     >
-      <div className={classes.toolbar} />
+      {loading && <Loading />}
     </Drawer>
   );
 };

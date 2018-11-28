@@ -1,8 +1,21 @@
 import React from 'react';
+import nock from 'nock';
 import { renderWithTheme } from '../../../test/utils';
 import NavigationDrawer from '../NavigationDrawer';
 
 describe('<NavigationDrawer />', () => {
+  const data = {
+    data: {
+      children: [{ name: '/r/all' }, { name: '/r/best' }, { name: '/r/top' }],
+    },
+  };
+
+  beforeEach(() => {
+    nock('https://api.reddit.com')
+      .get('/subreddits/default')
+      .reply(200, data);
+  });
+
   it.each(['md', 'lg', 'xl'])('should be visible even when closed with %s width', width => {
     const { getByTestId } = renderWithTheme(
       <NavigationDrawer width={width} drawerOpen={false} />,

@@ -6,7 +6,8 @@
     "curly": [true, "ignore-same-line"],
     "no-submodule-imports": [true, "@material-ui/core", "@material-ui/icons"],
     "object-literal-sort-keys": false,
-    "ordered-imports": false
+    "ordered-imports": false,
+    "interface-name": false
   },
   "rulesDirectory": [],
   "linterOptions": {

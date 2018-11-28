@@ -6,6 +6,24 @@
  */
 import 'react-testing-library/cleanup-after-each';
 import 'jest-dom/extend-expect';
+import nodeFetch from 'node-fetch';
+
+declare global {
+  namespace NodeJS {
+    interface Global {
+      // TODO: Improve typing
+      fetch: any;
+    }
+  }
+}
+
+// Jest runs in node, not in the browser, so we have to provide a fetch implementation.
+global.fetch = nodeFetch;
+
+// react-testing-library doesn't have the typings for `flushEffects` yet.
+declare module 'react-testing-library' {
+  function flushEffects(): void;
+}
 
 /**
  * We have to do this because Material-UI's tooltip uses `document.createRange` and we

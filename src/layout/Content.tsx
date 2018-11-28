@@ -17,10 +17,6 @@ const styles = (theme: Theme) => {
     mainShift: {
       marginLeft: 0,
     },
-    appHeader: {
-      flexGrow: 1,
-      ...theme.mixins.toolbar,
-    },
   });
 };
 
