@@ -3,6 +3,7 @@ import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
 import withWidth, { WithWidth, isWidthDown } from '@material-ui/core/withWidth';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
+import { Location } from '@reach/router';
 import Loading from '../utils/Loading';
 import Error from '../utils/Error';
 import NavigationDrawerItem from './NavigationDrawerItem';
@@ -35,26 +36,34 @@ const NavigationDrawer: FunctionComponent<INavigationDrawerProps> = ({
   const { loading, error, data, retry } = useReddit('subreddits/default');
 
   return (
-    <Drawer
-      className={classes.drawer}
-      variant={isWidthDown('sm', width) ? 'temporary' : 'persistent'}
-      anchor="left"
-      open={drawerOpen}
-      onClose={onDrawerClosed}
-      classes={{ paper: classes.drawerPaper }}
-      ModalProps={{ keepMounted: true }}
-      data-testid="navigation-drawer"
-    >
-      {loading && <Loading />}
-      {error && <Error onRetryClicked={retry} />}
-      {data ? (
-        <List dense={true}>
-          {data.map((subreddit: any) => (
-            <NavigationDrawerItem key={subreddit.id} subreddit={subreddit} />
-          ))}
-        </List>
-      ) : null}
-    </Drawer>
+    <Location>
+      {({ location }) => (
+        <Drawer
+          className={classes.drawer}
+          variant={isWidthDown('sm', width) ? 'temporary' : 'persistent'}
+          anchor="left"
+          open={drawerOpen}
+          onClose={onDrawerClosed}
+          classes={{ paper: classes.drawerPaper }}
+          ModalProps={{ keepMounted: true }}
+          data-testid="navigation-drawer"
+        >
+          {loading && <Loading />}
+          {error && <Error onRetryClicked={retry} />}
+          {data ? (
+            <List dense={true} component="div">
+              {data.map((subreddit: any) => (
+                <NavigationDrawerItem
+                  key={subreddit.id}
+                  subreddit={subreddit}
+                  isActive={location.pathname === subreddit.url}
+                />
+              ))}
+            </List>
+          ) : null}
+        </Drawer>
+      )}
+    </Location>
   );
 };
 
