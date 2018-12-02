@@ -4,7 +4,7 @@ import withWidth, { WithWidth, isWidthDown } from '@material-ui/core/withWidth';
 import classNames from 'classnames';
 import { Router } from '@reach/router';
 import { drawerWidth } from '../themes';
-import Loading from '../utils/Loading';
+import Loading from './utils/Loading';
 
 const Subreddit = lazy(() => import('../pages/Subreddit'));
 

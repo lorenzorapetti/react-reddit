@@ -4,7 +4,7 @@ import { createStyles, withStyles, WithStyles, Theme } from '@material-ui/core/s
 import Paper from '@material-ui/core/Paper';
 import NProgress from 'nprogress';
 import useReddit from '../hooks/useReddit';
-import Error from '../utils/Error';
+import Error from '../components/utils/Error';
 
 const styles = (theme: Theme) =>
   createStyles({
