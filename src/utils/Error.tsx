@@ -3,6 +3,7 @@ import { createStyles, withStyles, WithStyles, Theme } from '@material-ui/core/s
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ReportIcon from '@material-ui/icons/Report';
+import classNames from 'classnames';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -13,6 +14,11 @@ const styles = (theme: Theme) =>
       justifyContent: 'center',
       flexDirection: 'column',
     },
+    gutters: {
+      ...theme.mixins.gutters(),
+      paddingTop: theme.spacing.unit * 2,
+      paddingBottom: theme.spacing.unit * 2,
+    },
     text: {
       marginTop: theme.spacing.unit,
       marginBottom: theme.spacing.unit,
@@ -22,13 +28,18 @@ const styles = (theme: Theme) =>
 export interface IErrorProps extends WithStyles<typeof styles> {
   message?: string;
   buttonMessage?: string;
+  gutters?: boolean;
   onButtonClick?(): void;
 }
 
 const Error: FunctionComponent<IErrorProps> = React.memo(
-  ({ classes, onButtonClick, message, buttonMessage }) => {
+  ({ classes, onButtonClick, message, buttonMessage, gutters = false }) => {
     return (
-      <div className={classes.error}>
+      <div
+        className={classNames(classes.error, {
+          [classes.gutters]: gutters,
+        })}
+      >
         <ReportIcon style={{ fontSize: 80 }} color="disabled" />
         <Typography variant="body1" className={classes.text}>
           {message || 'Oops, something went wrong'}

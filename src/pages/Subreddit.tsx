@@ -17,7 +17,7 @@ const styles = (theme: Theme) =>
 
 export interface ISubredditProps extends RouteComponentProps, WithStyles<typeof styles> {}
 
-const Subreddit: FunctionComponent<ISubredditProps> = ({ classes, location }) => {
+const Subreddit: FunctionComponent<ISubredditProps> = ({ location }) => {
   NProgress.start();
 
   const { error, retry } = useReddit(location ? location.pathname : '/', {
@@ -25,15 +25,7 @@ const Subreddit: FunctionComponent<ISubredditProps> = ({ classes, location }) =>
     onFail: () => NProgress.done(),
   });
 
-  return (
-    <Paper>
-      {error && (
-        <div className={classes.error}>
-          <Error onButtonClick={retry} />
-        </div>
-      )}
-    </Paper>
-  );
+  return <Paper>{error && <Error onButtonClick={retry} gutters={true} />}</Paper>;
 };
 
 export default withStyles(styles)(Subreddit);
