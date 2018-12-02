@@ -3,6 +3,7 @@ import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
 import withWidth, { WithWidth, isWidthDown } from '@material-ui/core/withWidth';
 import Drawer from '@material-ui/core/Drawer';
 import Loading from '../utils/Loading';
+import Error from '../utils/Error';
 import { drawerWidth } from '../themes';
 import useReddit from '../hooks/useReddit';
 
@@ -29,7 +30,7 @@ const NavigationDrawer: FunctionComponent<INavigationDrawerProps> = ({
   onDrawerClosed,
   width,
 }) => {
-  const { loading } = useReddit('subreddits/default');
+  const { loading, error, retry } = useReddit('subreddits/default');
 
   return (
     <Drawer
@@ -43,6 +44,7 @@ const NavigationDrawer: FunctionComponent<INavigationDrawerProps> = ({
       data-testid="navigation-drawer"
     >
       {loading && <Loading />}
+      {error && <Error onRetryClicked={retry} />}
     </Drawer>
   );
 };
