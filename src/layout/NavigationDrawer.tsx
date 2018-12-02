@@ -33,7 +33,7 @@ const NavigationDrawer: FunctionComponent<INavigationDrawerProps> = ({
   onDrawerClosed,
   width,
 }) => {
-  const { loading, error, data, retry } = useReddit('subreddits/default');
+  const { loading, error, data, retry } = useReddit('/subreddits/default');
 
   return (
     <Location>
@@ -49,7 +49,7 @@ const NavigationDrawer: FunctionComponent<INavigationDrawerProps> = ({
           data-testid="navigation-drawer"
         >
           {loading && <Loading />}
-          {error && <Error onRetryClicked={retry} />}
+          {error && <Error onButtonClick={retry} />}
           {data ? (
             <List dense={true} component="div">
               {data.map((subreddit: any) => (

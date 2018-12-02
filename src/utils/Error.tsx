@@ -20,21 +20,25 @@ const styles = (theme: Theme) =>
   });
 
 export interface IErrorProps extends WithStyles<typeof styles> {
-  onRetryClicked?(): void;
+  message?: string;
+  buttonMessage?: string;
+  onButtonClick?(): void;
 }
 
-const Error: FunctionComponent<IErrorProps> = React.memo(({ classes, onRetryClicked }) => {
-  return (
-    <div className={classes.error}>
-      <ReportIcon style={{ fontSize: 80 }} color="disabled" />
-      <Typography variant="body1" className={classes.text}>
-        Oops, something went wrong
-      </Typography>
-      <Button color="primary" onClick={onRetryClicked}>
-        Retry
-      </Button>
-    </div>
-  );
-});
+const Error: FunctionComponent<IErrorProps> = React.memo(
+  ({ classes, onButtonClick, message, buttonMessage }) => {
+    return (
+      <div className={classes.error}>
+        <ReportIcon style={{ fontSize: 80 }} color="disabled" />
+        <Typography variant="body1" className={classes.text}>
+          {message || 'Oops, something went wrong'}
+        </Typography>
+        <Button color="primary" onClick={onButtonClick}>
+          {buttonMessage || 'Retry'}
+        </Button>
+      </div>
+    );
+  },
+);
 
 export default withStyles(styles)(Error);
