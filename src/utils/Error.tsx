@@ -23,7 +23,7 @@ export interface IErrorProps extends WithStyles<typeof styles> {
   onRetryClicked?(): void;
 }
 
-const Error: FunctionComponent<IErrorProps> = ({ classes, onRetryClicked }) => {
+const Error: FunctionComponent<IErrorProps> = React.memo(({ classes, onRetryClicked }) => {
   return (
     <div className={classes.error}>
       <ReportIcon style={{ fontSize: 80 }} color="disabled" />
@@ -35,6 +35,6 @@ const Error: FunctionComponent<IErrorProps> = ({ classes, onRetryClicked }) => {
       </Button>
     </div>
   );
-};
+});
 
 export default withStyles(styles)(Error);

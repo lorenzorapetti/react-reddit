@@ -2,8 +2,10 @@ import React, { FunctionComponent } from 'react';
 import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
 import withWidth, { WithWidth, isWidthDown } from '@material-ui/core/withWidth';
 import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
 import Loading from '../utils/Loading';
 import Error from '../utils/Error';
+import NavigationDrawerItem from './NavigationDrawerItem';
 import { drawerWidth } from '../themes';
 import useReddit from '../hooks/useReddit';
 
@@ -30,7 +32,7 @@ const NavigationDrawer: FunctionComponent<INavigationDrawerProps> = ({
   onDrawerClosed,
   width,
 }) => {
-  const { loading, error, retry } = useReddit('subreddits/default');
+  const { loading, error, data, retry } = useReddit('subreddits/default');
 
   return (
     <Drawer
@@ -45,6 +47,13 @@ const NavigationDrawer: FunctionComponent<INavigationDrawerProps> = ({
     >
       {loading && <Loading />}
       {error && <Error onRetryClicked={retry} />}
+      {data ? (
+        <List dense={true}>
+          {data.map((subreddit: any) => (
+            <NavigationDrawerItem key={subreddit.id} subreddit={subreddit} />
+          ))}
+        </List>
+      ) : null}
     </Drawer>
   );
 };

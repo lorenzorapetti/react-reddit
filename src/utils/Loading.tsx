@@ -14,12 +14,12 @@ const styles = () =>
 
 export interface ILoadingProps extends WithStyles<typeof styles> {}
 
-const Loading: FunctionComponent<ILoadingProps> = ({ classes }) => {
+const Loading: FunctionComponent<ILoadingProps> = React.memo(({ classes }) => {
   return (
     <div className={classes.loading}>
       <CircularProgress />
     </div>
   );
-};
+});
 
 export default withStyles(styles)(Loading);

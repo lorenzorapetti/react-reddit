@@ -10,7 +10,7 @@ exports[`<NavigationDrawer /> should switch themes 1`] = `
     direction="right"
   >
     <div
-      class="Loading-loading-578"
+      class="Component-loading-578"
     >
       <div
         class="MuiCircularProgress-root-579 MuiCircularProgress-colorPrimary-582 MuiCircularProgress-indeterminate-581"
@@ -46,7 +46,7 @@ exports[`<NavigationDrawer /> should switch themes 2`] = `
     direction="right"
   >
     <div
-      class="Loading-loading-640"
+      class="Component-loading-640"
     >
       <div
         class="MuiCircularProgress-root-630 MuiCircularProgress-colorPrimary-633 MuiCircularProgress-indeterminate-632"
