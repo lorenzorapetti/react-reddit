@@ -4,7 +4,13 @@
   "jsRules": {},
   "rules": {
     "curly": [true, "ignore-same-line"],
-    "no-submodule-imports": [true, "@material-ui/core", "@material-ui/icons", "mdi-material-ui"],
+    "no-submodule-imports": [
+      true,
+      "@material-ui/core",
+      "@material-ui/icons",
+      "mdi-material-ui",
+      "nprogress"
+    ],
     "object-literal-sort-keys": false,
     "ordered-imports": false,
     "interface-name": false

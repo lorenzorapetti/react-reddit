@@ -3,7 +3,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
+import 'nprogress/nprogress.css';
 import './index.css';
+
+import NProgress from 'nprogress';
+
+NProgress.configure({
+  showSpinner: false,
+});
 
 /**
  * Here we render all the react app to the element with the id "root".

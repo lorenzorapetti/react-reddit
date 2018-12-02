@@ -1,9 +1,12 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, Suspense, lazy } from 'react';
 import { Theme, withStyles, WithStyles, createStyles } from '@material-ui/core/styles';
 import withWidth, { WithWidth, isWidthDown } from '@material-ui/core/withWidth';
-import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
+import { Router } from '@reach/router';
 import { drawerWidth } from '../themes';
+import Loading from '../utils/Loading';
+
+const Subreddit = lazy(() => import('../pages/Subreddit'));
 
 const styles = (theme: Theme) => {
   const padding = theme.spacing.unit * 3;
@@ -32,7 +35,12 @@ const Content: FunctionComponent<IContentProps> = ({ classes, drawerOpen, width 
         (drawerOpen || isWidthDown('sm', width)) && classes.mainShift,
       )}
     >
-      <Typography>Content</Typography>
+      <Suspense fallback={<Loading />}>
+        <Router>
+          <Subreddit path="/" />
+          <Subreddit path="/r/:subreddit" />
+        </Router>
+      </Suspense>
     </main>
   );
 };
