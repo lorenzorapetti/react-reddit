@@ -31,15 +31,23 @@ export interface RequestOptions<T, E = T> extends RequestInit {
    * If true, it transforms the raw data to JSON.
    *
    * @type {boolean}
-   * @memberof RequestOptions
    */
   json?: boolean;
+
   /**
    * You can pass a `dataTransformer` to, well, transform the data returned from the fetch call.
-   *
-   * @memberof RequestOptions
    */
   dataTransformer?(data: T): E;
+
+  /**
+   * Called when the data is received and transformed
+   */
+  onSuccess?(): void;
+
+  /**
+   * Called when an error occurs
+   */
+  onFail?(err: ResponseError | Error): void;
 }
 
 /**
@@ -80,7 +88,7 @@ export default function useFetch<T = any, E = T>(
   const [loading, setLoading] = useState(false);
   const controller = useRef<AbortController | null>(null);
 
-  const { dataTransformer, json = true, ...rest } = options;
+  const { dataTransformer, json = true, onSuccess, onFail, ...rest } = options;
 
   useEffect(
     () => {
@@ -96,6 +104,7 @@ export default function useFetch<T = any, E = T>(
         .then(res => {
           setData(res);
           setLoading(false);
+          if (onSuccess !== undefined) onSuccess();
         })
         .catch(err => {
           if (err.name !== 'AbortError') {
@@ -106,6 +115,7 @@ export default function useFetch<T = any, E = T>(
             setData(null);
             setError(null);
           }
+          if (onFail !== undefined) onFail(err);
         });
 
       return () => {
