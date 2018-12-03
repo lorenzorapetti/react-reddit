@@ -19,7 +19,7 @@
     "analyze": "source-map-explorer build/static/js/main.*",
     "format": "prettier --write \"{+(.vscode|public|src|test)/**/,}*.{js,jsx,ts,tsx,json,css,scss,md,html}\"",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && cp build/index.html build/404.html",
     "test": "react-scripts test",
     "test:debug": "react-scripts --inspect-brk test --runInBand",
     "eject": "react-scripts eject"
