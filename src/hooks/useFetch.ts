@@ -1,20 +1,39 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useReducer } from 'react';
+import produce, { Draft } from 'immer';
+
+export type UseFetchError = ResponseError | Error;
 
 /**
- * The interface returned from {@link useFetch}.
- *
- * @export
- * @interface UseFetch
- * @template T The interface for the data returned from the fetch call
+ * The interface for the `useFetch` internal state
  */
-export interface UseFetch<T> {
+export interface UseFetchState<T> {
   data: T | null;
   loading: boolean;
-  error: ResponseError | Error | null;
+  error: UseFetchError | null;
   retries: number;
+}
+
+/**
+ * The interface returned from `useFetch`.
+ */
+export interface UseFetch<T> extends UseFetchState<T> {
   aborted: boolean;
   retry(): void;
   abort(): void;
+}
+
+enum UseFetchActionType {
+  Started,
+  Succeeded,
+  Failed,
+  Retried,
+  Aborted,
+}
+
+interface UseFetchAction<T> {
+  type: UseFetchActionType;
+  data?: Draft<T>;
+  error?: UseFetchError;
 }
 
 /**
@@ -42,12 +61,12 @@ export interface RequestOptions<T, E = T> extends RequestInit {
   /**
    * Called when the data is received and transformed
    */
-  onSuccess?(): void;
+  onSuccess?(data: E): void;
 
   /**
    * Called when an error occurs
    */
-  onFail?(err: ResponseError | Error): void;
+  onFail?(err: UseFetchError): void;
 }
 
 /**
@@ -64,11 +83,55 @@ export class ResponseError extends Error {
   }
 }
 
+const initialState: UseFetchState<any> = {
+  data: null,
+  error: null,
+  loading: false,
+  retries: 0,
+};
+
+function reducer<T>(state: UseFetchState<T>, action: UseFetchAction<T>): UseFetchState<T> {
+  return produce(state, draft => {
+    switch (action.type) {
+      case UseFetchActionType.Started:
+        draft.loading = true;
+        break;
+      case UseFetchActionType.Succeeded:
+        if (!action.data) {
+          throw new Error(
+            `The action "${UseFetchActionType.Succeeded.toString()}" must contain a "data" property`,
+          );
+        }
+
+        draft.loading = false;
+        draft.data = action.data;
+        draft.error = null;
+        break;
+      case UseFetchActionType.Failed:
+        draft.loading = false;
+        draft.data = null;
+        draft.error = action.error || null;
+        break;
+      case UseFetchActionType.Retried:
+        draft.data = null;
+        draft.error = null;
+        draft.loading = true;
+        draft.retries += 1;
+        break;
+      case UseFetchActionType.Aborted:
+        draft.data = null;
+        draft.error = null;
+        draft.loading = false;
+        break;
+    }
+  });
+}
+
 /**
  * A custom React Hook to fetch data using the [Fetch API](https://developer.mozilla.org/it/docs/Web/API/Fetch_API)
  * It supports a loading and an error state, the fetch call can be retried and it can have a
  * `dataTransformer` option to optionally transform the returned data.
- * In theory we can use React Suspance with react-cache but the typescript definitions aren't
+ * In theory we can use React Suspense with react-cache but the typescript definitions aren't
  * there yet.
  *
  * @export
@@ -82,10 +145,10 @@ export default function useFetch<T = any, E = T>(
   input: RequestInfo,
   options: RequestOptions<T, E> = {},
 ): UseFetch<E> {
-  const [data, setData] = useState<E | null>(null);
-  const [error, setError] = useState<ResponseError | Error | null>(null);
-  const [retries, setRetries] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [{ data, error, retries, loading }, dispatch] = useReducer<
+    UseFetchState<E>,
+    UseFetchAction<E>
+  >(reducer, initialState);
   const controller = useRef<AbortController | null>(null);
 
   const { dataTransformer, json = true, onSuccess, onFail, ...rest } = options;
@@ -93,7 +156,7 @@ export default function useFetch<T = any, E = T>(
   useEffect(
     () => {
       controller.current = new AbortController();
-      setLoading(true);
+      dispatch({ type: UseFetchActionType.Started });
 
       fetch(input, { signal: controller.current.signal, ...rest })
         .then(res => {
@@ -102,18 +165,14 @@ export default function useFetch<T = any, E = T>(
         })
         .then(res => (dataTransformer ? dataTransformer(res) : res))
         .then(res => {
-          setData(res);
-          setLoading(false);
-          if (onSuccess !== undefined) onSuccess();
+          dispatch({ type: UseFetchActionType.Succeeded, data: res });
+          if (onSuccess !== undefined) onSuccess(res);
         })
         .catch(err => {
           if (err.name !== 'AbortError') {
-            setError(err);
-            setLoading(false);
+            dispatch({ type: UseFetchActionType.Failed, error: err });
           } else {
-            setLoading(false);
-            setData(null);
-            setError(null);
+            dispatch({ type: UseFetchActionType.Aborted });
           }
           if (onFail !== undefined) onFail(err);
         });
@@ -128,9 +187,7 @@ export default function useFetch<T = any, E = T>(
   );
 
   function retry() {
-    setData(null);
-    setError(null);
-    setRetries(retries + 1);
+    dispatch({ type: UseFetchActionType.Retried });
   }
 
   function abort() {
