@@ -4,8 +4,8 @@ import withWidth, { WithWidth, isWidthDown } from '@material-ui/core/withWidth';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import { Location } from '@reach/router';
-import Loading from '../utils/Loading';
-import Error from '../utils/Error';
+import Loading from './utils/Loading';
+import Error from './utils/Error';
 import NavigationDrawerItem from './NavigationDrawerItem';
 import { drawerWidth } from '../themes';
 import useReddit from '../hooks/useReddit';
@@ -33,7 +33,7 @@ const NavigationDrawer: FunctionComponent<INavigationDrawerProps> = ({
   onDrawerClosed,
   width,
 }) => {
-  const { loading, error, data, retry } = useReddit('subreddits/default');
+  const { loading, error, data, retry } = useReddit('/subreddits/default');
 
   return (
     <Location>
@@ -49,7 +49,7 @@ const NavigationDrawer: FunctionComponent<INavigationDrawerProps> = ({
           data-testid="navigation-drawer"
         >
           {loading && <Loading />}
-          {error && <Error onRetryClicked={retry} />}
+          {error && <Error onButtonClick={retry} />}
           {data ? (
             <List dense={true} component="div">
               {data.map((subreddit: any) => (
