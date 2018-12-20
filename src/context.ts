@@ -2,9 +2,11 @@ import { createContext } from 'react';
 
 export interface ITitleContext {
   title: string;
-  setTitle?: (title: string) => void;
+  setTitle: (title: string) => void;
 }
 
 export const TitleContext = createContext<ITitleContext>({
   title: 'React Reddit',
+  /* tslint:disable-next-line no-empty */
+  setTitle: () => {},
 });

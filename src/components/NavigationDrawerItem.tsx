@@ -36,7 +36,7 @@ const NavigationDrawerItem: FunctionComponent<INavigationDrawerItemProps> = Reac
     }
 
     return (
-      <ListItem button={true} component={SubredditLink}>
+      <ListItem button={true} component={SubredditLink} disableRipple={true}>
         {subreddit.icon_img ? (
           <ListItemAvatar>
             <Avatar

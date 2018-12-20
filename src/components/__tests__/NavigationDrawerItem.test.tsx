@@ -1,6 +1,13 @@
 import React from 'react';
 import { render } from 'react-testing-library';
 import NavigationDrawerItem from '../NavigationDrawerItem';
+import { LinkProps as mockLinkProps } from '@reach/router';
+
+jest.mock('@reach/router', () => {
+  return {
+    Link: ({ children, to }: mockLinkProps<{}>) => <a href={to}>{children}</a>,
+  };
+});
 
 describe('<NavigationDrawerItem />', () => {
   function setup(image = false) {
