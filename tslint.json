@@ -9,7 +9,8 @@
       "@material-ui/core",
       "@material-ui/icons",
       "mdi-material-ui",
-      "nprogress"
+      "nprogress",
+      "date-fns"
     ],
     "object-literal-sort-keys": false,
     "ordered-imports": false,

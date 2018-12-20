@@ -25,7 +25,7 @@ function ComponentMock({ json = true, shouldError = false, dataTransformer }: IC
           {json ? data.map((s: any) => <div key={s.name}>{s.name}</div>) : data}
         </div>
       ) : null}
-      {error ? <div data-testid="error">{JSON.stringify(error)}</div> : null}
+      {error ? <div data-testid="error">Error</div> : null}
       {aborted && <div>Aborted</div>}
       <button onClick={retry}>Retry</button>
       <button onClick={abort}>Abort</button>

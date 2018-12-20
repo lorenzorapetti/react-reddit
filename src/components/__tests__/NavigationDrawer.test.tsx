@@ -11,6 +11,7 @@ describe('<NavigationDrawer />', () => {
   };
 
   beforeEach(() => {
+    nock.cleanAll();
     nock('https://api.reddit.com')
       .get('/subreddits/default')
       .reply(200, data);

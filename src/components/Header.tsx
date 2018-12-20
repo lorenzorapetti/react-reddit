@@ -38,7 +38,7 @@ const Header: FunctionComponent<IHeaderProps> = ({
   const lightTheme = theme.palette.type === 'light';
 
   return (
-    <AppBar position="absolute" className={classes.appBar}>
+    <AppBar position="fixed" className={classes.appBar}>
       <Toolbar variant="dense">
         <IconButton
           className={classes.menuButton}

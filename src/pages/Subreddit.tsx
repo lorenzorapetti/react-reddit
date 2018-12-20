@@ -1,10 +1,12 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { createStyles, withStyles, WithStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import NProgress from 'nprogress';
-import useReddit from '../hooks/useReddit';
+import { useReddit } from '../hooks';
+import { TitleContext } from '../context';
 import Error from '../components/utils/Error';
+import SubredditItem from '../components/SubredditItem';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -17,15 +19,27 @@ const styles = (theme: Theme) =>
 
 export interface ISubredditProps extends RouteComponentProps, WithStyles<typeof styles> {}
 
-const Subreddit: FunctionComponent<ISubredditProps> = ({ location }) => {
-  NProgress.start();
+const Subreddit: FunctionComponent<ISubredditProps> = ({ location, uri }) => {
+  const { setTitle } = useContext(TitleContext);
 
-  const { error, retry } = useReddit(location ? location.pathname : '/', {
-    onSuccess: () => NProgress.done(),
-    onFail: () => NProgress.done(),
+  const { error, retry, loading, data } = useReddit(location ? location.pathname : '/', {
+    onSuccess: () => {
+      setTitle(location && uri && location.pathname !== '/' ? uri : 'Homepage');
+    },
   });
 
-  return <Paper>{error && <Error onButtonClick={retry} gutters={true} />}</Paper>;
+  if (loading && !NProgress.isStarted()) {
+    NProgress.start();
+  } else if (NProgress.isStarted()) {
+    NProgress.done();
+  }
+
+  return (
+    <Paper data-testid="posts-container">
+      {error && <Error onButtonClick={retry} gutters={true} />}
+      {data && data.map((post: any) => <SubredditItem key={post.id} post={post} />)}
+    </Paper>
+  );
 };
 
 export default withStyles(styles)(Subreddit);

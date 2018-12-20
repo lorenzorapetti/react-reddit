@@ -36,7 +36,7 @@ const Content: FunctionComponent<IContentProps> = ({ classes, drawerOpen, width 
       )}
     >
       <Suspense fallback={<Loading />}>
-        <Router>
+        <Router primary={false}>
           <Subreddit path="/" />
           <Subreddit path="/r/:subreddit" />
         </Router>

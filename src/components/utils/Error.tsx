@@ -29,13 +29,14 @@ export interface IErrorProps extends WithStyles<typeof styles> {
   message?: string;
   buttonMessage?: string;
   gutters?: boolean;
-  onButtonClick?(): void;
+  onButtonClick?(event: React.MouseEvent<HTMLElement>): void;
 }
 
 const Error: FunctionComponent<IErrorProps> = React.memo(
   ({ classes, onButtonClick, message, buttonMessage, gutters = false }) => {
     return (
       <div
+        data-testid="error"
         className={classNames(classes.error, {
           [classes.gutters]: gutters,
         })}
