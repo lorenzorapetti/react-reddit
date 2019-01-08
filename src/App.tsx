@@ -1,4 +1,4 @@
-import { createStyles, withStyles, WithStyles, MuiThemeProvider } from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import React, { useState, useEffect, FunctionComponent } from 'react';
 import Header from './components/Header';
@@ -7,16 +7,14 @@ import Content from './components/Content';
 import { TitleContext } from './context';
 import { themeDark, themeLight } from './themes';
 
-const styles = () =>
-  createStyles({
-    root: {
-      display: 'flex',
-    },
-  });
+const useStyles = makeStyles({
+  root: {
+    display: 'flex',
+  },
+});
 
-export interface IAppProps extends WithStyles<typeof styles> {}
-
-const App: FunctionComponent<IAppProps> = ({ classes }) => {
+const App: FunctionComponent<{}> = () => {
+  const classes = useStyles();
   const [drawerOpen, setDrawerOpen] = useState(true);
   const [lightTheme, setLightTheme] = useState(true);
   const baseTitle = 'React Reddit';
@@ -46,7 +44,7 @@ const App: FunctionComponent<IAppProps> = ({ classes }) => {
   const theme = lightTheme ? themeLight : themeDark;
 
   return (
-    <MuiThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <TitleContext.Provider value={{ title, setTitle }}>
         <div className={classes.root}>
@@ -58,8 +56,8 @@ const App: FunctionComponent<IAppProps> = ({ classes }) => {
           <Content drawerOpen={drawerOpen} />
         </div>
       </TitleContext.Provider>
-    </MuiThemeProvider>
+    </ThemeProvider>
   );
 };
 
-export default withStyles(styles)(App);
+export default App;

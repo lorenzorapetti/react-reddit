@@ -51,7 +51,7 @@ const NavigationDrawer: FunctionComponent<INavigationDrawerProps> = ({
           {loading && <Loading />}
           {error && <Error onButtonClick={retry} />}
           {data ? (
-            <List dense={true} component="div">
+            <List dense={true} component="ul">
               {data.map((subreddit: any) => (
                 <NavigationDrawerItem
                   key={subreddit.id}

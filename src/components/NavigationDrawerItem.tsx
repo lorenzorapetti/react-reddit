@@ -32,7 +32,11 @@ export interface INavigationDrawerItemProps extends WithStyles<typeof styles> {
 const NavigationDrawerItem: FunctionComponent<INavigationDrawerItemProps> = React.memo(
   ({ classes, subreddit, isActive }) => {
     function SubredditLink(props: ListItemProps) {
-      return <Link to={subreddit.url} {...props} />;
+      return (
+        <li>
+          <Link to={subreddit.url} {...props} />
+        </li>
+      );
     }
 
     return (

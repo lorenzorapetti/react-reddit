@@ -2,19 +2,19 @@
 
 exports[`<Loading /> should match the snapshot 1`] = `
 <div
-  class="Component-loading"
+  class="Hook-loading"
 >
   <div
-    class="MuiCircularProgress-root MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
+    class="MuiCircularProgress-root-1 MuiCircularProgress-colorPrimary-4 MuiCircularProgress-indeterminate-3"
     role="progressbar"
     style="width: 40px; height: 40px;"
   >
     <svg
-      class="MuiCircularProgress-svg"
+      class="MuiCircularProgress-svg-6"
       viewBox="22 22 44 44"
     >
       <circle
-        class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
+        class="MuiCircularProgress-circle-7 MuiCircularProgress-circleIndeterminate-9"
         cx="44"
         cy="44"
         fill="none"
