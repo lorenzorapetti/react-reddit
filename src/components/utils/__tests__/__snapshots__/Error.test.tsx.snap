@@ -2,12 +2,12 @@
 
 exports[`<Error /> should set the gutters 1`] = `
 <div
-  class="Component-error"
+  class="Hook-error"
   data-testid="error"
 >
   <svg
     aria-hidden="true"
-    class="MuiSvgIcon-root MuiSvgIcon-colorDisabled"
+    class="MuiSvgIcon-root-161 MuiSvgIcon-colorDisabled-166"
     focusable="false"
     role="presentation"
     style="font-size: 80px;"
@@ -22,22 +22,22 @@ exports[`<Error /> should set the gutters 1`] = `
     />
   </svg>
   <p
-    class="MuiTypography-root MuiTypography-body1 Component-text"
+    class="MuiTypography-root-170 MuiTypography-body1-179 Hook-text"
   >
     Oops, something went wrong
   </p>
   <button
-    class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-flat MuiButton-flatPrimary"
+    class="MuiButtonBase-root-231 MuiButton-root-205 MuiButton-text-207 MuiButton-textPrimary-208 MuiButton-flat-210 MuiButton-flatPrimary-211"
     tabindex="0"
     type="button"
   >
     <span
-      class="MuiButton-label"
+      class="MuiButton-label-206"
     >
       Retry
     </span>
     <span
-      class="MuiTouchRipple-root"
+      class="MuiTouchRipple-root-234"
     />
   </button>
 </div>
@@ -45,12 +45,12 @@ exports[`<Error /> should set the gutters 1`] = `
 
 exports[`<Error /> should set the gutters 2`] = `
 <div
-  class="Component-error Component-gutters"
+  class="Hook-error Hook-gutters"
   data-testid="error"
 >
   <svg
     aria-hidden="true"
-    class="MuiSvgIcon-root MuiSvgIcon-colorDisabled"
+    class="MuiSvgIcon-root-161 MuiSvgIcon-colorDisabled-166"
     focusable="false"
     role="presentation"
     style="font-size: 80px;"
@@ -65,22 +65,22 @@ exports[`<Error /> should set the gutters 2`] = `
     />
   </svg>
   <p
-    class="MuiTypography-root MuiTypography-body1 Component-text"
+    class="MuiTypography-root-170 MuiTypography-body1-179 Hook-text"
   >
     Oops, something went wrong
   </p>
   <button
-    class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-flat MuiButton-flatPrimary"
+    class="MuiButtonBase-root-231 MuiButton-root-205 MuiButton-text-207 MuiButton-textPrimary-208 MuiButton-flat-210 MuiButton-flatPrimary-211"
     tabindex="0"
     type="button"
   >
     <span
-      class="MuiButton-label"
+      class="MuiButton-label-206"
     >
       Retry
     </span>
     <span
-      class="MuiTouchRipple-root"
+      class="MuiTouchRipple-root-234"
     />
   </button>
 </div>

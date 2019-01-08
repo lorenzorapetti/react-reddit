@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { Theme } from '@material-ui/core';
-import { createStyles, withStyles, WithStyles } from '@material-ui/styles';
+import { createStyles, makeStyles } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ReportIcon from '@material-ui/icons/Report';
 import classNames from 'classnames';
 
-const styles = (theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     error: {
       display: 'flex',
@@ -24,9 +24,10 @@ const styles = (theme: Theme) =>
       marginTop: theme.spacing.unit,
       marginBottom: theme.spacing.unit,
     },
-  });
+  }),
+);
 
-export interface IErrorProps extends WithStyles<typeof styles> {
+export interface IErrorProps {
   message?: string;
   buttonMessage?: string;
   gutters?: boolean;
@@ -34,7 +35,9 @@ export interface IErrorProps extends WithStyles<typeof styles> {
 }
 
 const Error: FunctionComponent<IErrorProps> = React.memo(
-  ({ classes, onButtonClick, message, buttonMessage, gutters = false }) => {
+  ({ onButtonClick, message, buttonMessage, gutters = false }) => {
+    const classes = useStyles();
+
     return (
       <div
         data-testid="error"
@@ -54,4 +57,4 @@ const Error: FunctionComponent<IErrorProps> = React.memo(
   },
 );
 
-export default withStyles(styles)(Error);
+export default Error;
